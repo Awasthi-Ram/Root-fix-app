@@ -28,9 +28,13 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onNavigate, user
       {/* Header */}
       <header className="bg-white px-4 py-3 flex justify-between items-center shadow-sm z-10">
         <div className="font-bold text-xl text-primary tracking-tight">RiseRoot</div>
-        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-primary font-bold">
+        <button 
+            onClick={() => onNavigate('profile')}
+            className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-primary font-bold hover:bg-green-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            aria-label="User Profile"
+        >
             {user.realName.charAt(0)}
-        </div>
+        </button>
       </header>
 
       {/* Main Content */}

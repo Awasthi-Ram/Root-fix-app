@@ -7,7 +7,7 @@ interface LeaderboardProps {
 }
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ donations }) => {
-  const [filter, setFilter] = useState<'Overall' | 'Education' | 'Medical' | 'Business'>('Overall');
+  const [filter, setFilter] = useState<'Overall' | 'Education' | 'Medical' | 'Business' | 'Development'>('Overall');
 
   // Aggregate donations by user
   const userTotals: Record<number, { amount: number; realName?: string; dummyName?: string; isPrivate: boolean }> = {};
@@ -40,12 +40,12 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ donations }) => {
           </h2>
           <p className="text-green-100 text-center text-sm mt-1">Celebrating our top change-makers</p>
           
-          <div className="flex overflow-x-auto gap-2 mt-6 pb-2 no-scrollbar justify-center">
-              {['Overall', 'Education', 'Medical', 'Business'].map(f => (
+          <div className="flex overflow-x-auto gap-2 mt-6 pb-2 no-scrollbar px-4">
+              {['Overall', 'Education', 'Medical', 'Business', 'Development'].map(f => (
                   <button
                     key={f}
                     onClick={() => setFilter(f as any)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap flex-shrink-0
                         ${filter === f ? 'bg-white text-primary' : 'bg-green-800 text-green-100 hover:bg-green-700'}`}
                   >
                       {f}

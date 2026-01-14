@@ -7,6 +7,7 @@ import Leaderboard from './components/Leaderboard';
 import Certificates from './components/Certificates';
 import Community from './components/Community';
 import AdminDashboard from './components/AdminDashboard';
+import UserProfile from './components/UserProfile';
 import { User, Donation, AdminPost, ChatMessage, Poll, UserRole } from './types';
 
 // Initial Mock Data
@@ -83,6 +84,17 @@ export default function App() {
       setPosts([newPost, ...posts]);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentView('home');
+  };
+
+  const handleTogglePrivacy = (isPrivate: boolean) => {
+    if (user) {
+        setUser({ ...user, isPrivate });
+    }
+  };
+
   if (!user) {
     return <Auth onLogin={setUser} />;
   }
@@ -112,6 +124,15 @@ export default function App() {
             setCurrentView('home'); // Redirect if not admin
         }
       break;
+    case 'profile':
+        viewContent = <UserProfile 
+            user={user} 
+            donations={donations.filter(d => d.userId === user.id)} 
+            onBack={() => setCurrentView('home')} 
+            onLogout={handleLogout}
+            onTogglePrivacy={handleTogglePrivacy}
+        />;
+        break;
     default:
       viewContent = <ImpactHome posts={posts} totalDonations={donations.length * 100} onDonateClick={() => setCurrentView('donate')} user={user} />;
   }
